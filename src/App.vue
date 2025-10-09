@@ -1,11 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import PikaGreetingsSection from './components/PikaGreetingsSection.vue'
+</script>
 
 <template>
-  <h1 class="relative mt-0 text-4xl text-red-400">You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="px-7.5 pt-8.75">
+    <PikaGreetingsSection />
+  </div>
 </template>
 
 <style scoped></style>

@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1 class="text-red-400 text-4xl">You did it!</h1>
+  <h1 class="relative mt-0 text-4xl text-red-400">You did it!</h1>
   <p>
     Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
     documentation

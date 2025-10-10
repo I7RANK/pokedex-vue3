@@ -8,6 +8,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
   const offset = ref(0)
 
   const initPokemonList = async () => {
+    offset.value = 0
     pokemonList.value = await fetchAllPokemon(offset.value)
   }
 

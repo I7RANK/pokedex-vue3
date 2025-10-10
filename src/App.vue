@@ -1,10 +1,10 @@
-<script setup lang="ts">
-import PikaGreetingsSection from './components/PikaGreetingsSection.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="px-7.5 pt-8.75">
-    <PikaGreetingsSection />
+  <div class="flex justify-center px-7.5 pt-8.75">
+    <div class="max-w-layout w-full">
+      <RouterView />
+    </div>
   </div>
 </template>
 

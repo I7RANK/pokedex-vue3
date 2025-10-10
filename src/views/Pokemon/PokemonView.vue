@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { nextTick, onMounted, ref } from 'vue'
-import PokeBallLoader from '@/components/PokeBallLoader.vue'
+import { storeToRefs } from 'pinia'
 import { usePokemonStore } from '@/stores/pokemon'
+import PokeBallLoader from '@/components/PokeBallLoader.vue'
 import PokemonCard from './components/PokemonCard.vue'
 import SearchInput from './components/SearchInput.vue'
 import NotFoundMessage from './components/NotFoundMessage.vue'
-import { storeToRefs } from 'pinia'
+import FooterFilters from './components/FooterFilters.vue'
+import { FOOTER_FILTER_OPTIONS } from '@/constants/filters'
 
 const pokemonStore = usePokemonStore()
 
@@ -26,6 +28,7 @@ const createObserver = () => {
 }
 
 onMounted(async () => {
+  pokemonStore.restoreFavorites()
   if (!filteredPokemonList.value.length) await pokemonStore.initPokemonList()
   loading.value = false
   nextTick(createObserver)
@@ -46,12 +49,21 @@ onMounted(async () => {
         <PokemonCard
           v-for="pokemon in filteredPokemonList"
           :key="pokemon.name"
-          :is-favorite="false"
+          :is-favorite="pokemonStore.favorites[pokemon.name]?.isFavorite || false"
           :name="pokemon.name"
+          @on-click-favorites="pokemonStore.toggleFavorite(pokemon)"
         />
       </div>
 
       <div ref="sentinel" class="h-10" />
+      <FooterFilters
+        v-if="
+          filteredPokemonList.length ||
+          pokemonStore.selectedFilter === FOOTER_FILTER_OPTIONS.FAVORITES
+        "
+        :initial-selected-filter="pokemonStore.selectedFilter"
+        @on-filter-change="pokemonStore.setSelectedFilter"
+      />
     </div>
   </div>
 </template>

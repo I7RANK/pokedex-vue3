@@ -9,3 +9,6 @@ export type PokemonResponse = {
   previous: string | null
   results: Pokemon[]
 }
+
+type Favorite = { pokemon: Pokemon; isFavorite: boolean }
+export type FavoritesMap = Record<string, Favorite>

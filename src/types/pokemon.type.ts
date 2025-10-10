@@ -1,6 +1,5 @@
 export type Pokemon = {
   name: string
-  url: string
 }
 
 export type PokemonResponse = {
@@ -10,5 +9,11 @@ export type PokemonResponse = {
   results: Pokemon[]
 }
 
-type Favorite = { pokemon: Pokemon; isFavorite: boolean }
-export type FavoritesMap = Record<string, Favorite>
+export type PokemonDetailed = {
+  height: number
+  name: string
+  sprite: string
+  types: string
+  weight: number
+  stringToShare: string
+}

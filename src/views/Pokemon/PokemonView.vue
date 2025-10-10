@@ -7,13 +7,29 @@ import PokemonCard from './components/PokemonCard.vue'
 import SearchInput from './components/SearchInput.vue'
 import NotFoundMessage from './components/NotFoundMessage.vue'
 import FooterFilters from './components/FooterFilters.vue'
+import PokemonDetailsModal from './components/PokemonDetailsModal.vue'
 import { FOOTER_FILTER_OPTIONS } from '@/constants/filters'
+import { storage } from '@/utils/storage'
+import { FAVORITES_KEY } from '@/constants/storageKeys'
+import type { Pokemon } from '@/types/pokemon.type'
 
 const pokemonStore = usePokemonStore()
+const { query, filteredPokemonList } = storeToRefs(pokemonStore)
 
 const loading = ref(true)
 const sentinel = ref(null)
-const { query, filteredPokemonList } = storeToRefs(pokemonStore)
+const showModal = ref(false)
+const selectedPokemonName = ref<string>('')
+
+const openModal = (pokemonName: string) => {
+  selectedPokemonName.value = pokemonName
+  showModal.value = true
+}
+
+const handleCloseModal = () => {
+  showModal.value = false
+  selectedPokemonName.value = ''
+}
 
 const createObserver = () => {
   if (!sentinel.value) return
@@ -27,8 +43,26 @@ const createObserver = () => {
   observer.observe(sentinel.value)
 }
 
+const restoreFavorites = () => {
+  const favoritesPokemon = storage.get<string[]>(FAVORITES_KEY)
+  if (favoritesPokemon) {
+    pokemonStore.setFavorites(favoritesPokemon)
+    return
+  }
+  pokemonStore.setFavorites([])
+}
+
+const addToFavorites = (name: string) => {
+  pokemonStore.setPokemonToFavorites(name)
+  storage.set(FAVORITES_KEY, pokemonStore.favorites)
+}
+
+const isFavorite = (name: string) => {
+  return pokemonStore.favorites.includes(name)
+}
+
 onMounted(async () => {
-  pokemonStore.restoreFavorites()
+  restoreFavorites()
   if (!filteredPokemonList.value.length) await pokemonStore.initPokemonList()
   loading.value = false
   nextTick(createObserver)
@@ -37,6 +71,12 @@ onMounted(async () => {
 
 <template>
   <div>
+    <PokemonDetailsModal
+      :pokemon-name="selectedPokemonName"
+      :show="showModal"
+      :close="handleCloseModal"
+      @click-favorites="addToFavorites"
+    />
     <div v-if="loading" class="fixed top-0 left-0 flex h-screen w-full items-center justify-center">
       <PokeBallLoader />
     </div>
@@ -49,9 +89,10 @@ onMounted(async () => {
         <PokemonCard
           v-for="pokemon in filteredPokemonList"
           :key="pokemon.name"
-          :is-favorite="pokemonStore.favorites[pokemon.name]?.isFavorite || false"
+          :is-favorite="isFavorite(pokemon.name)"
           :name="pokemon.name"
-          @on-click-favorites="pokemonStore.toggleFavorite(pokemon)"
+          @on-click-favorites="addToFavorites(pokemon.name)"
+          @on-click-card="openModal(pokemon.name)"
         />
       </div>
 

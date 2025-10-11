@@ -75,8 +75,16 @@ onUnmounted(() => {
       class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-7.5"
       @click.self="close"
     >
-      <div v-if="pokemonData" class="max-w-layout relative w-full rounded-[5px] bg-white">
-        <button @click="close" class="absolute top-2 right-2 z-10 cursor-pointer text-xl">
+      <div
+        data-testid="details-modal"
+        v-if="pokemonData"
+        class="max-w-layout relative w-full rounded-[5px] bg-white"
+      >
+        <button
+          data-testid="close-modal-button"
+          @click="close"
+          class="absolute top-2 right-2 z-10 cursor-pointer text-xl"
+        >
           <img
             :src="IconCircleX"
             class="h-[1.625rem] w-[1.625rem] text-white hover:text-gray-200"
@@ -108,7 +116,11 @@ onUnmounted(() => {
         </div>
         <div class="px-7.5 py-5">
           <div class="text-h2 text-neutral flex flex-col gap-y-2.5 capitalize">
-            <p :class="{ 'skeleton-animation': loading }" class="border-b border-[#E8E8E8] pb-2.5">
+            <p
+              data-testid="pokemon-name"
+              :class="{ 'skeleton-animation': loading }"
+              class="border-b border-[#E8E8E8] pb-2.5"
+            >
               <strong>Name:</strong> {{ pokemonData?.name }}
             </p>
             <p :class="{ 'skeleton-animation': loading }" class="border-b border-[#E8E8E8] pb-2.5">

@@ -10,7 +10,11 @@ const emit = defineEmits(['click-favorites'])
 </script>
 
 <template>
-  <button class="relative h-11 w-11 cursor-pointer" @click.stop="emit('click-favorites')">
+  <button
+    data-testid="favorites-button"
+    class="relative h-11 w-11 cursor-pointer"
+    @click.stop="emit('click-favorites')"
+  >
     <img
       :src="IconStarEnabled"
       class="absolute top-0 h-full w-full hover:opacity-90"

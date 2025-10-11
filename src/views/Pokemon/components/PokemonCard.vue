@@ -11,6 +11,7 @@ const emit = defineEmits(['click-favorites', 'click-card'])
 
 <template>
   <div
+    data-testid="pokemon-card"
     class="flex w-full cursor-pointer items-center justify-between rounded-[5px] bg-white py-2 pr-2.5 pl-5 transition-all hover:drop-shadow-md"
     @click="emit('click-card')"
   >

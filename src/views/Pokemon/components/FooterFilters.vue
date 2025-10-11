@@ -8,13 +8,13 @@ const props = defineProps<{
   initialSelectedFilter: FooterFilterOptions
 }>()
 
-const emit = defineEmits(['onFilterChange'])
+const emit = defineEmits(['filter-change'])
 
 const activeButton = ref<FooterFilterOptions>(props.initialSelectedFilter)
 
 const handleClick = (buttonName: FooterFilterOptions) => {
   activeButton.value = buttonName
-  emit('onFilterChange', buttonName)
+  emit('filter-change', buttonName)
 }
 </script>
 

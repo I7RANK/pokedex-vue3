@@ -91,8 +91,8 @@ onMounted(async () => {
           :key="pokemon.name"
           :is-favorite="isFavorite(pokemon.name)"
           :name="pokemon.name"
-          @on-click-favorites="addToFavorites(pokemon.name)"
-          @on-click-card="openModal(pokemon.name)"
+          @click-favorites="addToFavorites(pokemon.name)"
+          @click-card="openModal(pokemon.name)"
         />
       </div>
 
@@ -103,7 +103,7 @@ onMounted(async () => {
           pokemonStore.selectedFilter === FOOTER_FILTER_OPTIONS.FAVORITES
         "
         :initial-selected-filter="pokemonStore.selectedFilter"
-        @on-filter-change="pokemonStore.setSelectedFilter"
+        @filter-change="pokemonStore.setSelectedFilter"
       />
     </div>
   </div>

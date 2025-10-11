@@ -133,7 +133,7 @@ onUnmounted(() => {
             >
               {{ copyButtonText }}
             </BaseButton>
-            <FavoriteButton :is-favorite="isFavorite" @on-click-favorites="handleClickFavorites" />
+            <FavoriteButton :is-favorite="isFavorite" @click-favorites="handleClickFavorites" />
           </div>
         </div>
       </div>

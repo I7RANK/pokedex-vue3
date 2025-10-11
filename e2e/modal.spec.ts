@@ -7,7 +7,7 @@ test('should open and close the Pokemon details modal when clicking a card', asy
   await page.getByTestId('pokemon-card').getByText('bulbasaur').click()
 
   await expect(modalLocator).toBeVisible()
-  await expect(page.getByTestId('pokemon-name')).toHaveText(/bulbasaur/i)
+  await expect(modalLocator.getByTestId('pokemon-name')).toHaveText(/bulbasaur/i)
   await expect(modalLocator.getByTestId('favorites-button')).toBeVisible()
 
   await page.getByTestId('close-modal-button').click()

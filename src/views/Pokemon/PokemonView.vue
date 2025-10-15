@@ -63,7 +63,7 @@ const isFavorite = (name: string) => {
 
 onMounted(async () => {
   restoreFavorites()
-  if (!filteredPokemonList.value.length) await pokemonStore.initPokemonList()
+  await pokemonStore.initPokemonList()
   loading.value = false
   nextTick(createObserver)
 })

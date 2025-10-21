@@ -55,6 +55,14 @@ This approach improves **testability** and **long-term maintainability**.
 
 ## 🛠️ Project Setup
 
+### Environment Variables
+
+Before running the project, make sure to create a **.env** file in the root directory and add the following variable:
+
+```env
+VITE_BASE_URL="https://pokeapi.co/api/v2"
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh
